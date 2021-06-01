@@ -26,15 +26,15 @@ public class Service {
     }
 
 
-    public Set<Integer> searchInPdfFiles(String searchString) throws IOException, ParseException {
-        Set<Integer> ids = new HashSet<>();
+    public Set<Long> searchInPdfFiles(String searchString) throws IOException, ParseException {
+        Set<Long> ids = new HashSet<>();
 
         searcher = new Searcher(LuceneConstants.indexingPath);
         TopDocs hits = searcher.search(searchString, 10);
-        System.out.println(hits.totalHits + "pdfFiles for searchString \"" + searchString + "\"found");
+        System.out.println(hits.totalHits + " for searchString \"" + searchString + "\" found");
         for (ScoreDoc scoreDoc : hits.scoreDocs) {
             Document doc = searcher.getDocument(scoreDoc);
-            ids.add(Integer.valueOf(doc.get(LuceneConstants.ID)));
+            ids.add(Long.valueOf(doc.get(LuceneConstants.ID)));
         }
 
         return ids;

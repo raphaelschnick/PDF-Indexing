@@ -1,9 +1,8 @@
 package indexing;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.StopwordAnalyzerBase;
 import org.apache.lucene.analysis.de.GermanAnalyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.analysis.util.StopwordAnalyzerBase;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StoredField;
@@ -27,7 +26,7 @@ public class Indexer {
     public Indexer(String indexDirectoryPath) throws IOException {
         Directory indexDirectory = FSDirectory.open(Paths.get(indexDirectoryPath));
         System.out.println(indexDirectory);
-        Analyzer analyzer = new StandardAnalyzer();
+        StopwordAnalyzerBase analyzer = new GermanAnalyzer();
 
         IndexWriterConfig indexWriterConfig = new IndexWriterConfig(analyzer);
         writer = new IndexWriter(indexDirectory, indexWriterConfig);

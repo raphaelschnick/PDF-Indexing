@@ -1,14 +1,17 @@
 import indexing.Edition;
 import indexing.Service;
+import org.apache.lucene.queryparser.classic.ParseException;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
+import java.util.Set;
 
 public class Main {
 
     private static final Service service = new Service();
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ParseException {
         System.out.println("PDF Indexer");
 
         Edition edition_1 = new Edition(1L, "Edition 1", "src/main/resources/pdf/1.pdf");
@@ -21,11 +24,20 @@ public class Main {
         indexing(edition_3);
         indexing(edition_4);
 
+        search();
     }
 
     public static void indexing (Edition edition) throws IOException {
         File file = new File(edition.getFile());
         service.createPdfIndex(edition, file);
         System.out.println("indexing -> " + edition.getName() + " file: " + file.getAbsolutePath());
+    }
+
+    public static void search () throws ParseException, IOException {
+        System.out.println("Suchbegriff: ");
+        Scanner scanner = new Scanner(System.in);
+        Set<Long> ids = service.searchInPdfFiles(scanner.nextLine());
+        System.out.println("Gefundene Ausgaben: " + ids);
+        search();
     }
 }
