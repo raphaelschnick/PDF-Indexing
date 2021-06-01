@@ -41,6 +41,7 @@ public class Service {
     }
 
     public void deletePdfIndex(Edition edition) throws IOException {
+        System.out.println("Deleting index from: " + edition.getId());
         indexer = new Indexer(LuceneConstants.indexingPath);
         indexer.deleteIndex(edition.getId());
     }

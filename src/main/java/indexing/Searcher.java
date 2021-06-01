@@ -1,6 +1,6 @@
 package indexing;
 
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.analysis.de.GermanAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
@@ -26,7 +26,7 @@ public class Searcher {
         Directory indexDirectory = FSDirectory.open(Paths.get(indexDirectoryPath));
         IndexReader reader = DirectoryReader.open(indexDirectory);
         indexSearcher = new IndexSearcher(reader);
-        queryParser = new QueryParser(LuceneConstants.CONTENT, new StandardAnalyzer());
+        queryParser = new QueryParser(LuceneConstants.CONTENT, new GermanAnalyzer());
     }
 
     public TopDocs search(String searchQuery, Integer maxSearchResults) throws IOException, ParseException {

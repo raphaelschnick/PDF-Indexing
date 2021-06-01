@@ -1,6 +1,5 @@
 package indexing;
 
-import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.StopwordAnalyzerBase;
 import org.apache.lucene.analysis.de.GermanAnalyzer;
 import org.apache.lucene.document.Document;
