@@ -1,6 +1,7 @@
 import indexing.Edition;
 import indexing.Service;
 import org.apache.lucene.queryparser.classic.ParseException;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +14,11 @@ public class Main {
 
     public static void main(String[] args) throws IOException, ParseException {
         System.out.println("PDF Indexer");
+
+        File file = new File("index-store");
+        if (file.exists()) {
+            FileUtils.deleteDirectory(file);
+        }
 
         Edition edition_1 = new Edition(1L, "Edition 1", "src/main/resources/pdf/1.pdf");
         Edition edition_2 = new Edition(2L, "Edition 2", "src/main/resources/pdf/2.pdf");

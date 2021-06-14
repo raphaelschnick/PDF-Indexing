@@ -6,6 +6,7 @@ build/
 !**/src/test/**/build/
 
 /indexing
+/index-store
 
 ### STS ###
 .apt_generated

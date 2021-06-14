@@ -5,5 +5,5 @@ public class LuceneConstants {
    public static final String TITLE = "title";
    public static final String CONTENT = "content";
 
-   public static final String indexingPath = "indexing";
+   public static final String indexingPath = "index-store";
 }
