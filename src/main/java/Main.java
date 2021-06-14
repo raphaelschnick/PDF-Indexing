@@ -2,6 +2,7 @@ import indexing.Edition;
 import indexing.Service;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.commons.io.FileUtils;
+import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +13,7 @@ public class Main {
 
     private static final Service service = new Service();
 
-    public static void main(String[] args) throws IOException, ParseException {
+    public static void main(String[] args) throws IOException, ParseException, InvalidTokenOffsetsException {
         System.out.println("PDF Indexer");
 
         File file = new File("index-store");
@@ -39,7 +40,7 @@ public class Main {
         System.out.println("indexing -> " + edition.getName() + " file: " + file.getAbsolutePath());
     }
 
-    public static void search () throws ParseException, IOException {
+    public static void search () throws ParseException, IOException, InvalidTokenOffsetsException {
         System.out.println("Suchbegriff: ");
         Scanner scanner = new Scanner(System.in);
         Set<Long> ids = service.searchInPdfFiles(scanner.nextLine());

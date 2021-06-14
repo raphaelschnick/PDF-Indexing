@@ -4,6 +4,7 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +27,7 @@ public class Service {
     }
 
 
-    public Set<Long> searchInPdfFiles(String searchString) throws IOException, ParseException {
+    public Set<Long> searchInPdfFiles(String searchString) throws IOException, ParseException, InvalidTokenOffsetsException {
         Set<Long> ids = new HashSet<>();
 
         searcher = new Searcher(LuceneConstants.indexingPath);
@@ -34,7 +35,12 @@ public class Service {
         System.out.println(hits.totalHits + " for searchString \"" + searchString + "\" found");
         for (ScoreDoc scoreDoc : hits.scoreDocs) {
             Document doc = searcher.getDocument(scoreDoc);
-            ids.add(Long.valueOf(doc.get(LuceneConstants.ID)));
+            Long id = Long.valueOf(doc.get(LuceneConstants.ID));
+            String[] fragments = searcher.previewText(doc, scoreDoc.doc);
+            System.out.println(id + "\n");
+            System.out.println(fragments[0]);
+            System.out.println("\n\n");
+            ids.add(id);
         }
 
         return ids;
